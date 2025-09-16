@@ -31,4 +31,11 @@ class BoardService(
         val board = boardRepository.findById(id).orElseThrow { IllegalArgumentException("Board with id $id not found") }
         return BoardDto(board.id, board.title, board.content, board.name)
     }
+
+    fun update(boardDto: BoardDto) {
+        val id = boardDto.id!!
+        val board = boardRepository.findById(id).orElseThrow { IllegalArgumentException("Board with id $id not found") }
+        board.update(boardDto)
+        boardRepository.save(board)
+    }
 }

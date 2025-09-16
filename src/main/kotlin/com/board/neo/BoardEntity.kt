@@ -18,4 +18,9 @@ class BoardEntity (
     val name: String,
 
 ) {
+
+    fun update(boardDto: BoardDto) {
+        this.title = boardDto.title
+        this.content = boardDto.content
+    }
 }
