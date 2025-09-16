@@ -18,4 +18,17 @@ class BoardService(
 
         boardRepository.save(boardEntity)
     }
+
+    fun getAll(): List<BoardDto> {
+        val boardEntities = boardRepository.findAll()
+        val boardDtos = boardEntities.map {
+            it -> BoardDto(id = it.id, title = it.title, content = it.content, name = it.name)
+        }
+        return boardDtos
+    }
+
+    fun getById(id: Long): BoardDto {
+        val board = boardRepository.findById(id).orElseThrow { IllegalArgumentException("Board with id $id not found") }
+        return BoardDto(board.id, board.title, board.content, board.name)
+    }
 }

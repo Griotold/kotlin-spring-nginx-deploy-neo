@@ -1,5 +1,7 @@
 package com.board.neo
 
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,5 +18,15 @@ class BoardController(
         @RequestBody boardDto: BoardDto,
     ) {
         boardService.create(boardDto)
+    }
+
+    @GetMapping
+    fun getAll(): List<BoardDto> {
+        return boardService.getAll()
+    }
+
+    @GetMapping("/{id}")
+    fun getByID(@PathVariable("id") id: Long): BoardDto {
+        return boardService.getById(id)
     }
 }
