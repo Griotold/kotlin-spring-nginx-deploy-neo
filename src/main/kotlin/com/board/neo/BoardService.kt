@@ -38,4 +38,8 @@ class BoardService(
         board.update(boardDto)
         boardRepository.save(board)
     }
+
+    fun deleteById(id: Long) {
+        boardRepository.deleteById(id)
+    }
 }
