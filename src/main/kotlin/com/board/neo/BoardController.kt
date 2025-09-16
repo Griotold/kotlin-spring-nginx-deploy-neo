@@ -1,15 +1,20 @@
 package com.board.neo
 
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/board")
-class BoardController {
+class BoardController(
+    private val boardService: BoardService
+) {
 
     @PostMapping
-    fun create() {
-
+    fun create(
+        @RequestBody boardDto: BoardDto,
+    ) {
+        boardService.create(boardDto)
     }
 }

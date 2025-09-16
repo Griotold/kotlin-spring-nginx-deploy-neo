@@ -1,4 +1,6 @@
 package com.board.neo
 
-class BoardRepository {
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface BoardRepository : JpaRepository<BoardEntity, Long> {
 }
