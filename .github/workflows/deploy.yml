@@ -65,19 +65,21 @@ jobs:
       - name: Restart application with Docker
         run: |
           ssh -i ~/.ssh/ec2_key.pem -o StrictHostKeyChecking=no ubuntu@$HOST "
+            export PATH=/usr/bin:/usr/local/bin:\$PATH
+            
             # 기존 컨테이너 제거
-            sudo /usr/bin/docker stop app || true
-            sudo /usr/bin/docker rm app || true
-            sudo /usr/bin/docker rmi myapp || true
+            sudo docker stop app || true
+            sudo docker rm app || true
+            sudo docker rmi myapp || true
 
             # 이미지 빌드
             echo 'Building Docker image from /home/ubuntu/app...'
             cd /home/ubuntu/app
-            sudo /usr/bin/docker build -t myapp .
+            sudo docker build -t myapp .
 
             # 컨테이너 실행
             echo 'Starting new application container...'
-            sudo /usr/bin/docker run -d --name app \
+            sudo docker run -d --name app \
               --restart unless-stopped \
               -p 8080:8080 \
               myapp
@@ -85,11 +87,11 @@ jobs:
             # 헬스 체크
             echo 'Waiting for application to start...'
             sleep 10
-            if sudo /usr/bin/docker ps | grep -q 'app.*Up'; then
+            if sudo docker ps | grep -q 'app.*Up'; then
               echo 'Deployment successful! Application is running.'
             else
               echo 'Deployment failed! Container is not running.'
-              sudo /usr/bin/docker logs app
+              sudo docker logs app
               exit 1
             fi
           "
