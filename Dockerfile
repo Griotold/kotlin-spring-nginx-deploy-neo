@@ -1,8 +1,6 @@
 # 1. 베이스 이미지 선택 (Java 17 사용)
 FROM openjdk:21-jdk-slim
 
-WORKDIR /app
-
 # 2. 앱 JAR 파일 복사
 COPY neo-0.0.1-SNAPSHOT.jar app.jar
 
